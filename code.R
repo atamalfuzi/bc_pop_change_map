@@ -17,8 +17,9 @@ pop <- read_csv(pop_url, col_select = c(Region, Year, Gender, Total), show_col_t
   select(-Gender) %>%
   pivot_wider(names_from = Year, values_from = Total) %>%
   mutate(
-    change_23_03 = `2023` - `2003`,
-    change_46_23 = `2046` - `2023`
+    # Percent change, so small towns and big cities read on the same scale
+    change_23_03 = 100 * (`2023` / `2003` - 1),
+    change_46_23 = 100 * (`2046` / `2023` - 1)
   )
 
 # Region codes are census division * 1000 + subdivision (e.g. Chilliwack 9020 -> CSD 5909020).
@@ -44,8 +45,9 @@ pop_map <- csd_geogs %>%
 # Inset box around Metro Vancouver
 inset_box <- c(xmin = -123.3, xmax = -122.7, ymin = 49, ymax = 49.3)
 
-make_map <- function(change, breaks, labels, legend_title, file) {
-  palette <- rev(viridisLite::viridis(length(labels), option = "D"))
+make_map <- function(change, breaks, labels, legend_title, title, file) {
+  # Diverging colours centred on zero: browns for loss, teals for growth
+  palette <- RColorBrewer::brewer.pal(8, "BrBG")[-1]
 
   main_map <- ggplot(pop_map) +
     geom_sf(aes(fill = cut(.data[[change]], breaks = breaks, labels = labels, include.lowest = TRUE)),
@@ -62,7 +64,7 @@ make_map <- function(change, breaks, labels, legend_title, file) {
              fill = NA, colour = "black", linewidth = 0.7) +
     labs(fill = legend_title)
 
-  final_map <- ggdraw(main_map, xlim = c(.15, 1), ylim = c(0, 1)) +
+  final_map <- ggdraw(main_map, xlim = c(.15, 1), ylim = c(0, 1.08)) +
     draw_plot({
       main_map +
         coord_sf(
@@ -78,32 +80,40 @@ make_map <- function(change, breaks, labels, legend_title, file) {
     y = 0.55,
     # The width and height of the plot expressed as proportion of the entire ggdraw object
     width = 0.4,
-    height = 0.4)
+    height = 0.4) +
+    draw_label(title, x = 0.17, y = 1.04, hjust = 0, fontface = "bold", size = 18)
 
   dir.create("maps", showWarnings = FALSE)
-  ggsave(file.path("maps", file), final_map, bg = "white", width = 12, height = 8)
+  ggsave(file.path("maps", file), final_map, bg = "white", width = 12, height = 8.6)
 }
+
+# Figures ----
+# Same bins on both maps so the colours mean the same thing
+breaks <- c(-Inf, -20, -10, 0, 10, 25, 50, Inf)
+labels <- c("Less than -20%", "-20% to -10%", "-10% to 0%",
+            "0% to 10%", "10% to 25%", "25% to 50%", "More than 50%")
+
+grew <- sum(pop$change_23_03 > 0)
+shrink <- sum(pop$change_46_23 < 0)
 
 # Figure change_23_03 ----
 make_map(
   "change_23_03",
-  breaks = c(-Inf, -1000, -100, 0, 50, 100, 1000, 10000, 50000, 100000, Inf),
-  labels = c("Less than -1000", "-1000 to -100", "-100 to 0",
-             "0 to 50", "50 to 100", "100 to 1000",
-             "1000 to 10,000", "10,000 to 50,000",
-             "50,000 to 100,000", "More than 100,000"),
-  legend_title = "Population change\n2003-2023",
+  breaks = breaks,
+  labels = labels,
+  legend_title = "Population change
+2003-2023",
+  title = sprintf("%d of %d areas grew between 2003 and 2023", grew, nrow(pop)),
   file = "change_23_03.png"
 )
 
 # Figure change_46_23 ----
 make_map(
   "change_46_23",
-  breaks = c(-Inf, 0, 25, 50, 100, 1000, 10000, 50000, 100000, Inf),
-  labels = c("Less than 0", "0 to 25",
-             "25 to 50", "50 to 100", "100 to 1000",
-             "1000 to 10,000", "10,000 to 50,000",
-             "50,000 to 100,000", "More than 100,000"),
-  legend_title = "Projected change\n2023-2046",
+  breaks = breaks,
+  labels = labels,
+  legend_title = "Projected change
+2023-2046",
+  title = sprintf("%d of %d areas are projected to shrink by 2046", shrink, nrow(pop)),
   file = "change_46_23.png"
 )
