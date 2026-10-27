@@ -2,6 +2,8 @@
 
 Where has British Columbia's population grown, and where is it projected to shrink? These maps show the percent change in population for every municipality: estimated change from 2003 to 2023, and BC Stats' projection from 2023 to 2046. Each map has an inset zoomed on Metro Vancouver.
 
+> **Personal project.** This is my own analysis of publicly available data. It is not associated with my work for any current or past employer and does not represent their views.
+
 ## What it shows
 
 - Growth was widespread: 147 of 191 areas grew between 2003 and 2023. Langford more than doubled (+160%). Most of the areas that lost people are small communities in the north and along the coast.
