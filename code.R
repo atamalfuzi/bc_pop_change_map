@@ -72,7 +72,6 @@ make_map <- function(change, legend_title, title, file) {
     draw_plot(inset, x = 0.64, y = 0.55, width = 0.4, height = 0.4) +
     draw_label(title, x = 0.17, y = 1.04, hjust = 0, fontface = "bold", size = 18)
 
-  dir.create("maps", showWarnings = FALSE)
   ggsave(file.path("maps", file), final_map, bg = "white", width = 12, height = 8.6)
 }
 
