@@ -64,23 +64,12 @@ make_map <- function(change, breaks, labels, legend_title, title, file) {
              fill = NA, colour = "black", linewidth = 0.7) +
     labs(fill = legend_title)
 
+  inset <- main_map +
+    coord_sf(xlim = inset_box[c("xmin", "xmax")], ylim = inset_box[c("ymin", "ymax")], expand = FALSE) +
+    theme(legend.position = "none")
+
   final_map <- ggdraw(main_map, xlim = c(.15, 1), ylim = c(0, 1.08)) +
-    draw_plot({
-      main_map +
-        coord_sf(
-          xlim = inset_box[c("xmin", "xmax")],
-          ylim = inset_box[c("ymin", "ymax")],
-          expand = FALSE
-        ) +
-        theme(legend.position = "none")
-    },
-    # The distance along a (0,1) x-axis to draw the left edge of the plot
-    x = 0.64,
-    # The distance along a (0,1) y-axis to draw the bottom edge of the plot
-    y = 0.55,
-    # The width and height of the plot expressed as proportion of the entire ggdraw object
-    width = 0.4,
-    height = 0.4) +
+    draw_plot(inset, x = 0.64, y = 0.55, width = 0.4, height = 0.4) +
     draw_label(title, x = 0.17, y = 1.04, hjust = 0, fontface = "bold", size = 18)
 
   dir.create("maps", showWarnings = FALSE)
