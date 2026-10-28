@@ -45,7 +45,7 @@ pop_map <- csd_geogs %>%
 # Inset box around Metro Vancouver
 inset_box <- c(xmin = -123.3, xmax = -122.7, ymin = 49, ymax = 49.3)
 
-make_map <- function(change, breaks, labels, legend_title, title, file) {
+make_map <- function(change, legend_title, title, file) {
   # Diverging colours centred on zero: browns for loss, teals for growth
   palette <- RColorBrewer::brewer.pal(8, "BrBG")[-1]
 
@@ -88,8 +88,6 @@ shrink <- sum(pop$change_46_23 < 0)
 # Figure change_23_03 ----
 make_map(
   "change_23_03",
-  breaks = breaks,
-  labels = labels,
   legend_title = "Population change
 2003-2023",
   title = sprintf("%d of %d areas grew between 2003 and 2023", grew, nrow(pop)),
@@ -99,8 +97,6 @@ make_map(
 # Figure change_46_23 ----
 make_map(
   "change_46_23",
-  breaks = breaks,
-  labels = labels,
   legend_title = "Projected change
 2023-2046",
   title = sprintf("%d of %d areas are projected to shrink by 2046", shrink, nrow(pop)),
