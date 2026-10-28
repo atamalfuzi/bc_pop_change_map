@@ -61,9 +61,11 @@ make_map <- function(change, legend_title, title, file) {
     coord_sf(xlim = inset_box[c("xmin", "xmax")], ylim = inset_box[c("ymin", "ymax")], expand = FALSE) +
     theme(legend.position = "none")
 
-  final_map <- ggdraw(main_map, xlim = c(.15, 1), ylim = c(0, 1.08)) +
-    draw_plot(inset, x = 0.64, y = 0.55, width = 0.4, height = 0.4) +
-    draw_label(title, x = 0.17, y = 1.04, hjust = 0, fontface = "bold", size = 18)
+  final_map <- ggdraw(main_map, xlim = c(.15, 1), ylim = c(0, 1.03)) +
+    draw_plot(inset, x = 0.64, y = 0.57, width = 0.4, height = 0.38) +
+    draw_label(title, x = 0.17, y = 0.995, hjust = 0, fontface = "bold", size = 18) +
+    draw_label("Data: BC Stats, Sub-Provincial Population Estimates and Projections.\nContains information licensed under the Open Government Licence - British Columbia.",
+               x = 0.99, y = 0.015, hjust = 1, vjust = 0, size = 9, colour = "grey30")
 
   ggsave(file.path("maps", file), final_map, bg = "white", width = 12, height = 8.6)
 }
