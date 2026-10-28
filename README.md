@@ -27,7 +27,7 @@ Contains information licensed under the [Open Government Licence – British Col
 ## Run it
 
 ```r
-install.packages(c("sf", "bcmaps", "ggplot2", "dplyr", "tidyr", "readr", "cowplot"))
+install.packages(c("sf", "bcmaps", "ggplot2", "dplyr", "cowplot"))
 source("code.R")
 ```
 

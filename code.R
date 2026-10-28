@@ -1,7 +1,5 @@
 # Loading Required Libraries ----
 library(dplyr)
-library(tidyr)
-library(readr)
 library(sf)
 library(bcmaps)
 library(ggplot2)
@@ -12,14 +10,13 @@ library(cowplot)
 # Open Government Licence - British Columbia
 pop_url <- "https://catalogue.data.gov.bc.ca/dataset/86839277-986a-4a29-9f70-fa9b1166f6cb/resource/0e15d04d-127c-457a-b999-20800c929927/download/municipality-population.csv"
 
-pop <- read_csv(pop_url, col_select = c(Region, Year, Gender, Total), show_col_types = FALSE) %>%
-  filter(Gender == "T", Year %in% c(2003, 2023, 2046), Region != 0) %>%
-  select(-Gender) %>%
-  pivot_wider(names_from = Year, values_from = Total) %>%
-  mutate(
+pop <- read.csv(pop_url) %>%
+  filter(Gender == "T", Region != 0) %>%
+  group_by(Region) %>%
+  summarise(
     # Percent change, so small towns and big cities read on the same scale
-    change_23_03 = 100 * (`2023` / `2003` - 1),
-    change_46_23 = 100 * (`2046` / `2023` - 1)
+    change_23_03 = 100 * (Total[Year == 2023] / Total[Year == 2003] - 1),
+    change_46_23 = 100 * (Total[Year == 2046] / Total[Year == 2023] - 1)
   )
 
 # Region codes are census division * 1000 + subdivision (e.g. Chilliwack 9020 -> CSD 5909020).
