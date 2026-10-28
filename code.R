@@ -1,4 +1,3 @@
-# Loading Required Libraries ----
 library(dplyr)
 library(sf)
 library(bcmaps)
@@ -32,7 +31,6 @@ csd_geogs <- census_subdivision() %>%
   group_by(Region) %>%
   summarise()
 
-# Every region in the data should land on the map
 stopifnot(all(pop$Region %in% csd_geogs$Region))
 
 pop_map <- csd_geogs %>%
@@ -75,13 +73,12 @@ make_map <- function(change, legend_title, title, file) {
 breaks <- c(-Inf, -20, -10, 0, 10, 25, 50, Inf)
 labels <- c("Less than -20%", "-20% to -10%", "-10% to 0%",
             "0% to 10%", "10% to 25%", "25% to 50%", "More than 50%")
-# Diverging colours centred on zero: browns for loss, teals for growth
+# BrBG has 4 browns and 4 teals; dropping the darkest brown leaves 3 for the 3 loss bins
 palette <- RColorBrewer::brewer.pal(8, "BrBG")[-1]
 
 grew <- sum(pop$change_23_03 > 0)
 shrink <- sum(pop$change_46_23 < 0)
 
-# Figure change_23_03 ----
 make_map(
   "change_23_03",
   legend_title = "Population change\n2003-2023",
@@ -89,7 +86,6 @@ make_map(
   file = "change_23_03.png"
 )
 
-# Figure change_46_23 ----
 make_map(
   "change_46_23",
   legend_title = "Projected change\n2023-2046",
