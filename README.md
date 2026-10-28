@@ -1,6 +1,6 @@
 # bc_pop_change_map
 
-Where has British Columbia's population grown, and where is it projected to shrink? These maps show the percent change in population for every municipality: estimated change from 2003 to 2023, and BC Stats' projection from 2023 to 2046. Each map has an inset zoomed on Metro Vancouver.
+Two maps of percent population change in every BC municipality: estimated change from 2003 to 2023, and BC Stats' projection from 2023 to 2046. Each has an inset on Metro Vancouver.
 
 > **Personal project.** This is my own analysis of publicly available data. It is not associated with my work for any current or past employer and does not represent their views.
 
