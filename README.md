@@ -1,4 +1,4 @@
-# bc_pop_change_map
+# BC population change maps
 
 Two maps of percent population change in every BC municipality: estimated change from 2003 to 2023, and BC Stats' projection from 2023 to 2046. Each has an inset on Metro Vancouver.
 
