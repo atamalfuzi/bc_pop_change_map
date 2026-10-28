@@ -6,9 +6,9 @@ Two maps of percent population change in every BC municipality: estimated change
 
 ## What it shows
 
-- Growth was widespread: 147 of 191 areas grew between 2003 and 2023. Langford more than doubled (+160%). Most of the areas that lost people are small communities in the north and along the coast.
-- Growth is still concentrated in absolute numbers: Metro Vancouver gained 61% of BC's added residents from 2003 to 2023 and is projected to gain 65% of them by 2046.
-- The projection is less even: 66 of 191 areas are projected to shrink by 2046, across most of the north and the central interior.
+- 147 of 191 areas grew between 2003 and 2023. Langford more than doubled (+160%). Most of the areas that lost people are small communities in the north and along the coast.
+- Most of the growth in head count is still in Metro Vancouver. It gained 61% of BC's added residents from 2003 to 2023 and is projected to gain 65% of them by 2046.
+- 66 of 191 areas are projected to shrink by 2046, across most of the north and the central interior.
 
 ![Population change 2003-2023](maps/change_23_03.png)
 
