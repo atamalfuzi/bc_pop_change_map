@@ -16,7 +16,7 @@ Two maps of percent population change in every BC municipality: estimated change
 
 ## Data
 
-[BC Sub-Provincial Population Estimates and Projections](https://catalogue.data.gov.bc.ca/dataset/bc-sub-provincial-population-estimates-and-projections), Municipalities (Census Subdivisions) table. The script downloads it directly, so there's nothing to set up. Boundaries come from the [bcmaps](https://github.com/bcgov/bcmaps) package (2021 census subdivisions, clipped to the coastline).
+[BC Sub-Provincial Population Estimates and Projections](https://catalogue.data.gov.bc.ca/dataset/bc-sub-provincial-population-estimates-and-projections), Municipalities (Census Subdivisions) table. `code.R` downloads it. Boundaries come from the [bcmaps](https://github.com/bcgov/bcmaps) package (2021 census subdivisions, clipped to the coastline).
 
 Percent change is shown so that a small town and a big city read on the same scale; colours run brown for loss and teal for growth, centred on zero. Percentages swing more where few people live, as in the large unincorporated areas of the north.
 
