@@ -43,9 +43,6 @@ pop_map <- csd_geogs %>%
 inset_box <- c(xmin = -123.3, xmax = -122.7, ymin = 49, ymax = 49.3)
 
 make_map <- function(change, legend_title, title, file) {
-  # Diverging colours centred on zero: browns for loss, teals for growth
-  palette <- RColorBrewer::brewer.pal(8, "BrBG")[-1]
-
   main_map <- ggplot(pop_map) +
     geom_sf(aes(fill = cut(.data[[change]], breaks = breaks, labels = labels)),
             lwd = 0.2,
@@ -77,6 +74,8 @@ make_map <- function(change, legend_title, title, file) {
 breaks <- c(-Inf, -20, -10, 0, 10, 25, 50, Inf)
 labels <- c("Less than -20%", "-20% to -10%", "-10% to 0%",
             "0% to 10%", "10% to 25%", "25% to 50%", "More than 50%")
+# Diverging colours centred on zero: browns for loss, teals for growth
+palette <- RColorBrewer::brewer.pal(8, "BrBG")[-1]
 
 grew <- sum(pop$change_23_03 > 0)
 shrink <- sum(pop$change_46_23 < 0)
