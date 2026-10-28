@@ -23,7 +23,8 @@ pop <- read.csv(pop_url) %>%
 # Areas outside municipalities are reported as one "Unincorporated Areas" total per
 # regional district (code CD * 1000 + 999), so those CSD polygons are merged to match.
 csd_geogs <- census_subdivision() %>%
-  st_intersection(bc_bound_hres()) %>%
+  st_set_agr("constant") %>%
+  st_intersection(st_geometry(bc_bound_hres())) %>%
   mutate(
     csd = as.numeric(CENSUS_SUBDIVISION_ID) - 5900000,
     Region = if_else(csd %in% pop$Region, csd, (csd %/% 1000) * 1000 + 999)
