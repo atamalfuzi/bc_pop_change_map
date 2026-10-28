@@ -83,8 +83,7 @@ shrink <- sum(pop$change_46_23 < 0)
 # Figure change_23_03 ----
 make_map(
   "change_23_03",
-  legend_title = "Population change
-2003-2023",
+  legend_title = "Population change\n2003-2023",
   title = sprintf("%d of %d areas grew between 2003 and 2023", grew, nrow(pop)),
   file = "change_23_03.png"
 )
@@ -92,8 +91,7 @@ make_map(
 # Figure change_46_23 ----
 make_map(
   "change_46_23",
-  legend_title = "Projected change
-2023-2046",
+  legend_title = "Projected change\n2023-2046",
   title = sprintf("%d of %d areas are projected to shrink by 2046", shrink, nrow(pop)),
   file = "change_46_23.png"
 )
