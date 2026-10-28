@@ -50,7 +50,7 @@ make_map <- function(change, breaks, labels, legend_title, title, file) {
   palette <- RColorBrewer::brewer.pal(8, "BrBG")[-1]
 
   main_map <- ggplot(pop_map) +
-    geom_sf(aes(fill = cut(.data[[change]], breaks = breaks, labels = labels, include.lowest = TRUE)),
+    geom_sf(aes(fill = cut(.data[[change]], breaks = breaks, labels = labels)),
             lwd = 0.2,
             colour = "black") +
     scale_fill_manual(values = palette, drop = FALSE, na.value = "gray") +
