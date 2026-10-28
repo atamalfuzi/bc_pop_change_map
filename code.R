@@ -53,7 +53,7 @@ make_map <- function(change, breaks, labels, legend_title, title, file) {
     geom_sf(aes(fill = cut(.data[[change]], breaks = breaks, labels = labels)),
             lwd = 0.2,
             colour = "black") +
-    scale_fill_manual(values = palette, drop = FALSE, na.value = "gray") +
+    scale_fill_manual(values = palette, drop = FALSE) +
     theme_void() +
     theme(legend.position = "inside",
           legend.position.inside = c(0.25, 0.2),
